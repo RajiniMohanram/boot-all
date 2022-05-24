@@ -30,7 +30,9 @@
             <scope>runtime</scope>
         </dependency>
         
+        
         <!-- Security and JWT Dependencies -->
+        <!-- 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -45,7 +47,8 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+		 -->
+		 
 		<!-- Web MVC and REST dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
