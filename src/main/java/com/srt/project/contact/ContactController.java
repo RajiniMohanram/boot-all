@@ -1,29 +1,34 @@
 package com.srt.project.contact;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class ContactController {
 	@Autowired
 	private ContactRepo repo;
 	
 	@GetMapping("/all-contacts")
-	public Iterable<Contact> getAllContact(){
-		return repo.findAll();
+	public String getAllContact(Model model){
+		Iterable<Contact> contacts = repo.findAll();
+		model.addAttribute("contacts", contacts);
+		return "contact-list";
 	}
 	
-	@GetMapping("/find-contact/{id}")
-	public Contact findContact(@PathVariable("id") Integer contactId) {
-		return repo.findById(contactId).get();
+	@GetMapping("/add-contact")
+	public String getContactForm(Model model) {
+		Contact contact = new Contact();
+		model.addAttribute("cont", contact);
+		return "contact-form";
 	}
 	
 	@PostMapping("/add-contact")
-	public Contact addContact(@RequestBody Contact contact) {
-		return repo.save(contact);
+	public String addContact(@ModelAttribute("cont") Contact contact) {
+		repo.save(contact);
+		return "index";
 	}
 }
